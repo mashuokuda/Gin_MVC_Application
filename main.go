@@ -1,5 +1,7 @@
 package main
 
+//go:generate  air
+
 import "github.com/gin-gonic/gin"
 
 func main() {
@@ -9,5 +11,5 @@ func main() {
 			"message": "Hello Gin",
 		})
 	})
-	r.Run()
+	r.Run("localhost:8080")
 }
