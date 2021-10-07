@@ -11,5 +11,5 @@ func main() {
 			"message": "Hello Gin",
 		})
 	})
-	r.Run()
+	r.Run("localhost:8080")
 }
