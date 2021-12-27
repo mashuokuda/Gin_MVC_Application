@@ -6,13 +6,15 @@ import (
 	"Gin_MVC/model/priority"
 	"log"
 	"testing"
+
+	"gorm.io/gorm"
 )
 
 func TestUser(t *testing.T) {
 	_ = database.DBConnection()
 
 	database.Migrator([]interface{}{&User{}, &notify.Notify{}, &priority.Priority{}})
-	log.Println(GetUser("saitou").Name)
+	// log.Println(GetUser("saitou").Name)
 
 	var u = User{
 		//UserId:       0,
@@ -24,14 +26,23 @@ func TestUser(t *testing.T) {
 		Location: 0,
 		Publish:  false,
 	}
-	err := UserCreate(&u)
+	err := database.DB.Transaction(
+		func(tx *gorm.DB) error {
+			err := UserCreate(&u)
+			if err != nil {
+				return err
+			}
+			err = notify.InitNotify(u.Id)
+			if err != nil {
+				return err
+			}
+			priority.CreatePriority(u.Id)
+			if err != nil {
+				return err
+			}
+			return nil
+		})
 	if err != nil {
-		return
+		log.Panicln(err)
 	}
-	err = notify.InitNotify(u.Id)
-	if err != nil {
-		return
-	}
-	priority.CreatePriority(u.Id)
-
 }
