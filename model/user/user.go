@@ -19,11 +19,11 @@ type User struct {
 	Notify   notify.Notify
 }
 
-func GetUser(name string) User {
+func GetUser(name string) (User, error) {
 	//_ := database.DBConnection()
 	user := User{}
-	database.DB.Find(&user, "Username", name)
-	return user
+	err := database.DB.Find(&user, "Username", name).Error
+	return user, err
 }
 
 func UserCreate(user *User) error {

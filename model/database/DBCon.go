@@ -2,6 +2,7 @@ package database
 
 import (
 	"errors"
+
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 )
@@ -20,12 +21,16 @@ func DBConnection() error {
 	return nil
 }
 
-func migrator(i interface{}) {
-	DB.AutoMigrate(i)
+func migrator(i interface{}) error {
+	return DB.AutoMigrate(i)
 }
 
-func Migrator(i []interface{}) {
+func Migrator(i []interface{}) error {
 	for _, i3 := range i {
-		migrator(i3)
+		err := migrator(i3)
+		if err != nil {
+			return err
+		}
 	}
+	return nil
 }

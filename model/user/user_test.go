@@ -15,7 +15,8 @@ func TestUser(t *testing.T) {
 
 	database.Migrator([]interface{}{&User{}, &notify.Notify{}, &priority.Priority{}})
 	// log.Println(GetUser("saitou").Name)
-
+	s, erro := GetUser("saitou")
+	log.Print(s, erro)
 	var u = User{
 		//UserId:       0,
 		Name:     "斉藤",
@@ -32,7 +33,7 @@ func TestUser(t *testing.T) {
 			if err != nil {
 				return err
 			}
-			err = notify.InitNotify(u.Id)
+			err = notify.CreateNotify(u.Id)
 			if err != nil {
 				return err
 			}
