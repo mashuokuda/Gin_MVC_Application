@@ -27,6 +27,12 @@ func CreateNotify(user int) error {
 	}).Error
 }
 
+func GetNotify(user int) (Notify, error) {
+	var n Notify
+	e := database.DB.First(&n, user).Error
+	return n, e
+}
+
 func (n Notify) addNotify(comment NotifyJSON) (Notify, error) {
 	var j NotifyJSON
 	_ = json.Unmarshal([]byte(n.Notify), &j)

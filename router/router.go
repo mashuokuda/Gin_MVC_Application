@@ -11,6 +11,6 @@ func GetRouter() *gin.Engine {
 	router.Static("resource", "./resource")
 
 	router.GET("/", controller.IndexDisplayAction)
-
+	router.GET("/discuss", controller.Display)
 	return router
 }
