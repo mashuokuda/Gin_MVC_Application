@@ -26,7 +26,7 @@ func GetUser(name string) (User, error) {
 	return user, err
 }
 
-func UserCreate(user *User) error {
+func CreateUser(user *User) error {
 	//_ := database.DBConnection()
 
 	return database.DB.Create(user).Error
