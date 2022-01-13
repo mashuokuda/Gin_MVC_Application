@@ -12,5 +12,6 @@ func GetRouter() *gin.Engine {
 
 	router.GET("/", controller.IndexDisplayAction)
 	router.GET("/discuss", controller.Display)
+	router.GET("/notify", controller.GetNotify)
 	return router
 }
