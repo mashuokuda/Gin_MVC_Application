@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<body>
+<p>{{.err}}</p>
+<form method="post" action="/doAuth">
+  <ul>
+    <li>ユーザー名:<input name="username"></li>
+    <li>パスワード:<input name="password" type="password"></li>
+    <li><input type="submit" name="submit"></li>
+  </ul>
+</form>
+</body>
+</html>
