@@ -3,6 +3,7 @@ package user
 import (
 	"Gin_MVC/model/database"
 	"Gin_MVC/model/notify"
+	"golang.org/x/crypto/bcrypt"
 	"time"
 )
 
@@ -28,6 +29,7 @@ func GetUser(name string) (User, error) {
 
 func CreateUser(user *User) error {
 	//_ := database.DBConnection()
-
+	p, _ := bcrypt.GenerateFromPassword([]byte(user.Password), bcrypt.DefaultCost)
+	user.Password = string(p)
 	return database.DB.Create(user).Error
 }

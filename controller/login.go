@@ -31,8 +31,7 @@ func DoAuth(c *gin.Context) {
 	user, _ := user.GetUser(postedUser)
 	formPass := c.PostForm("password")
 	log.Println(formPass + " : " + user.Password)
-	p, _ := bcrypt.GenerateFromPassword([]byte(user.Password), bcrypt.DefaultCost)
-	if err := bcrypt.CompareHashAndPassword(p, []byte(formPass)); err != nil {
+	if err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(formPass)); err != nil {
 		log.Println("Cannot login")
 		c.Abort()
 		session.Set("err", "ログインに失敗しました")
