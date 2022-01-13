@@ -33,7 +33,7 @@ func GetNotify(user int) (Notify, error) {
 	return n, e
 }
 
-func (n Notify) addNotify(comment NotifyJSON) (Notify, error) {
+func (n Notify) AddNotify(comment NotifyJSON) (Notify, error) {
 	var j NotifyJSON
 	_ = json.Unmarshal([]byte(n.Notify), &j)
 	j = append(j, comment...)
@@ -45,7 +45,7 @@ func (n Notify) addNotify(comment NotifyJSON) (Notify, error) {
 	return n, tx.Error
 }
 
-func (n Notify) removeNotify() error {
+func (n Notify) RemoveNotify() error {
 	var r = Notify{}
 	b, _ := json.Marshal(NotifyJSON{})
 	n.Notify = string(b)

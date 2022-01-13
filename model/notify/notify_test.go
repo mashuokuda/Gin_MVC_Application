@@ -31,7 +31,7 @@ func TestNotify(t *testing.T) {
 	database.DB.Last(&n)
 	// log.Panicln(n)
 	for i := 0; i < 10; i++ {
-		n, _ = n.addNotify(
+		n, _ = n.AddNotify(
 			NotifyJSON{
 				struct {
 					DiscussID int    "json:\"discussID\""
