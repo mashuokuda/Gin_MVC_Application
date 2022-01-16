@@ -2,7 +2,6 @@ package database
 
 import (
 	"errors"
-	"log"
 
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
@@ -13,13 +12,23 @@ var DB *gorm.DB
 func DBConnection() error {
 	if DB == nil {
 		var err error
-		DB, err = gorm.Open(sqlite.Open("data.DB"), &gorm.Config{})
+		DB, err = getNewDB()
 
 		if err != nil {
 			return errors.New("Cannot connect database")
 		}
 	}
 	return nil
+}
+
+func getNewDB() (*gorm.DB, error) {
+	var db *gorm.DB
+	db, err := gorm.Open(sqlite.Open("data.DB"), &gorm.Config{})
+
+	if err != nil {
+		return nil, err
+	}
+	return db, nil
 }
 
 func migrator(i interface{}) error {
@@ -37,15 +46,6 @@ func Migrator(i []interface{}) error {
 }
 
 func Transaction(f func(tx *gorm.DB) error) error {
-	d := DB
-	DB = DB.Begin()
-	DB.Begin()
-	err := DB.Transaction(f)
-	if err != nil {
-		DB.Rollback()
-		log.Fatalln("Rollback")
-		return err
-	}
-	DB = d
-	return nil
+	//db, _ := getNewDB()
+	return DB.Transaction(f)
 }

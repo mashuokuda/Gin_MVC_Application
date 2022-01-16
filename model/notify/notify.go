@@ -3,6 +3,8 @@ package notify
 import (
 	"Gin_MVC/model/database"
 	"encoding/json"
+
+	"gorm.io/gorm"
 )
 
 type Notify struct {
@@ -10,7 +12,7 @@ type Notify struct {
 	Notify string `json:"notify"`
 }
 
-func CreateNotify(user int) error {
+func CreateNotify(user int, tx *gorm.DB) *gorm.DB {
 	var s string
 	t, _ := json.Marshal(NotifyJSON{
 		struct {
@@ -21,10 +23,10 @@ func CreateNotify(user int) error {
 		}{},
 	})
 	s = string(t)
-	return database.DB.Create(&Notify{
+	return tx.Create(&Notify{
 		UserID: user,
 		Notify: s,
-	}).Error
+	})
 }
 
 func GetNotify(user int) (Notify, error) {
