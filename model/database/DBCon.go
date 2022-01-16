@@ -2,6 +2,7 @@ package database
 
 import (
 	"errors"
+	"log"
 
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
@@ -32,5 +33,19 @@ func Migrator(i []interface{}) error {
 			return err
 		}
 	}
+	return nil
+}
+
+func Transaction(f func(tx *gorm.DB) error) error {
+	d := DB
+	DB = DB.Begin()
+	DB.Begin()
+	err := DB.Transaction(f)
+	if err != nil {
+		DB.Rollback()
+		log.Fatalln("Rollback")
+		return err
+	}
+	DB = d
 	return nil
 }

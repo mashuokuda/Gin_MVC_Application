@@ -27,7 +27,7 @@ func TestUser(t *testing.T) {
 		Location: 0,
 		Publish:  false,
 	}
-	err := database.DB.Transaction(
+	err := database.Transaction(
 		func(tx *gorm.DB) error {
 			err := CreateUser(&u)
 			if err != nil {
