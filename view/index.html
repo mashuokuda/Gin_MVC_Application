@@ -8,5 +8,25 @@
 </head>
 <body>
 <h1>{{ .str }}</h1>
+<p>{{.username}}</p>
+<p id="notify"></p>
+<script>
+    let c = 0
+    let fn = ()=>{
+        fetch("/notify").then(
+            (res)=>{
+                return res.json()
+            }
+        ).then((j)=>{
+            nn = JSON.parse(j)
+            if (c < nn.length){
+                document.getElementById("notify").innerText = nn.length +"件の通知があります"
+                c = nn.length
+            }
+        })
+    };
+    fn();
+    setInterval(fn,5000)
+</script>
 </body>
 </html>

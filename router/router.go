@@ -18,6 +18,6 @@ func GetRouter() *gin.Engine {
 	router.GET("/discuss", controller.Display)
 	router.GET("/login", controller.DisplayLoginFrom)
 	router.POST("/doAuth", controller.DoAuth)
-
+	router.GET("/notify", controller.GetNotify)
 	return router
 }
