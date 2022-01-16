@@ -3,8 +3,9 @@ package user
 import (
 	"Gin_MVC/model/database"
 	"Gin_MVC/model/notify"
-	"golang.org/x/crypto/bcrypt"
 	"time"
+
+	"golang.org/x/crypto/bcrypt"
 )
 
 type User struct {
@@ -17,6 +18,7 @@ type User struct {
 	Tel      string
 	Location uint32
 	Publish  bool
+	Profile  string
 	Notify   notify.Notify
 }
 
