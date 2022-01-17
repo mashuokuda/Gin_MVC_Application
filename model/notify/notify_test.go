@@ -27,7 +27,7 @@ func TestNotify(t *testing.T) {
 		// UserID: 1,
 		Notify: string(s),
 	}
-	err := CreateNotify(n.UserID, database.DB)
+	err := CreateNotify(n.Id, database.DB)
 	database.DB.Last(&n)
 	// log.Panicln(n)
 	for i := 0; i < 10; i++ {
