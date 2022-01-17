@@ -31,7 +31,7 @@ func TestUser(t *testing.T) {
 		//UserId:       0,
 		Name:     "斉藤",
 		Ruby:     "サイトウ",
-		Username: "saito",
+		Username: "saitou",
 		Password: "asdfgdf",
 		Tel:      "03000000000",
 		Location: 0,
@@ -57,5 +57,6 @@ func TestUser(t *testing.T) {
 		log.Fatal(err.Error())
 	}
 
-	log.Println(u.Priority.UserId)
+	log.Println(u.Priority.Id)
+	database.DB.Save(&u)
 }
