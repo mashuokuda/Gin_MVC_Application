@@ -8,6 +8,7 @@ import (
 
 	"golang.org/x/crypto/bcrypt"
 	"gorm.io/gorm"
+	"gorm.io/gorm/clause"
 )
 
 type User struct {
@@ -30,8 +31,8 @@ func GetUser(name string) (User, error) {
 	user := User{}
 	err := database.DB.Find(&user, "Username", name).Error
 	if err == nil {
-		database.DB.Find(&user.Notify)
-		database.DB.Find(&user.Priority)
+		database.DB.Preload(clause.Associations).Find(&user)
+		database.DB.Preload(clause.Associations).Find(&user)
 	}
 	return user, err
 }

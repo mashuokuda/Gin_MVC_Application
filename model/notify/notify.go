@@ -43,7 +43,7 @@ func (n Notify) AddNotify(comment NotifyJSON) (Notify, error) {
 	n.Notify = string(b)
 	var r = Notify{}
 	tx := database.DB.First(&r, n.Id).Update("Notify", n.Notify)
-	database.DB.Find(&n, "user_id", r.Id)
+	database.DB.Find(&n, "id", r.Id)
 	return n, tx.Error
 }
 
