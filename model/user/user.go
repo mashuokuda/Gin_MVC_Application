@@ -21,14 +21,18 @@ type User struct {
 	Location uint32
 	Publish  bool
 	Profile  string
-	Notify   notify.Notify
-	Priority priority.Priority
+	Notify   notify.Notify     `gorm:"foreignKey:Id"`
+	Priority priority.Priority `gorm:"foreignKey:Id"`
 }
 
 func GetUser(name string) (User, error) {
 	//_ := database.DBConnection()
 	user := User{}
 	err := database.DB.Find(&user, "Username", name).Error
+	if err == nil {
+		database.DB.Find(&user.Notify)
+		database.DB.Find(&user.Priority)
+	}
 	return user, err
 }
 

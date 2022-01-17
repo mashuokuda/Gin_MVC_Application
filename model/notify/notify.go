@@ -8,7 +8,7 @@ import (
 )
 
 type Notify struct {
-	UserID int    `gorm:"primaryKey"`
+	Id     int    `gorm:"primaryKey"`
 	Notify string `json:"notify"`
 }
 
@@ -24,7 +24,7 @@ func CreateNotify(user int, tx *gorm.DB) *gorm.DB {
 	})
 	s = string(t)
 	return tx.Create(&Notify{
-		UserID: user,
+		Id:     user,
 		Notify: s,
 	})
 }
@@ -42,8 +42,8 @@ func (n Notify) AddNotify(comment NotifyJSON) (Notify, error) {
 	b, _ := json.Marshal(j)
 	n.Notify = string(b)
 	var r = Notify{}
-	tx := database.DB.First(&r, n.UserID).Update("Notify", n.Notify)
-	database.DB.Find(&n, "user_id", r.UserID)
+	tx := database.DB.First(&r, n.Id).Update("Notify", n.Notify)
+	database.DB.Find(&n, "user_id", r.Id)
 	return n, tx.Error
 }
 
@@ -52,5 +52,5 @@ func (n Notify) RemoveNotify() error {
 	b, _ := json.Marshal(NotifyJSON{})
 	n.Notify = string(b)
 
-	return database.DB.First(&r, n.UserID).Update("Notify", n.Notify).Error
+	return database.DB.First(&r, n.Id).Update("Notify", n.Notify).Error
 }
