@@ -45,7 +45,7 @@ func TestNotify(t *testing.T) {
 	// var r = Notify{}
 	// err = database.DB.First(&r, n.UserID).Update("Notify", n.Notify).Error
 
-	if err != nil {
+	if err.Error != nil {
 		panic(err.Error)
 	}
 
