@@ -2,11 +2,13 @@ package controller
 
 import (
 	"Gin_MVC/model/user"
+	"log"
+	_ "net/http"
+	"time"
+
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
 	"golang.org/x/crypto/bcrypt"
-	"log"
-	_ "net/http"
 )
 
 func DisplayLoginFrom(c *gin.Context) {
@@ -15,6 +17,7 @@ func DisplayLoginFrom(c *gin.Context) {
 	if e != nil {
 		log.Println("login failed")
 		session.Delete("err")
+		session.Save()
 	}
 	c.HTML(200, "login.html", gin.H{
 		"err": e,
@@ -40,6 +43,7 @@ func DoAuth(c *gin.Context) {
 
 	} else {
 		session.Set("User", user.Username)
+		session.Set("LoginTime", time.Now().Unix())
 		session.Save()
 		c.Next()
 		//session.Set("length")
