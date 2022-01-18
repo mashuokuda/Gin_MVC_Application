@@ -4,6 +4,7 @@ import (
 	"Gin_MVC/model/database"
 	"Gin_MVC/model/notify"
 	"Gin_MVC/model/priority"
+	"encoding/json"
 	"log"
 	"testing"
 
@@ -11,39 +12,51 @@ import (
 )
 
 func TestUser(t *testing.T) {
-	_ = database.DBConnection()
-
+	er := database.DBConnection()
+	if er != nil {
+		log.Fatal(er)
+	}
 	database.Migrator([]interface{}{&User{}, &notify.Notify{}, &priority.Priority{}})
-	// log.Println(GetUser("saitou").Name)
 	s, erro := GetUser("saitou")
 	log.Print(s, erro)
+	ts, _ := json.Marshal(notify.NotifyJSON{
+		struct {
+			DiscussID int    "json:\"discussID\""
+			Hash      string "json:\"hash\""
+			Level     int    "json:\"level\""
+			Comment   string "json:\"comment\""
+		}{},
+	})
 	var u = User{
 		//UserId:       0,
 		Name:     "斉藤",
 		Ruby:     "サイトウ",
-		Username: "saito",
+		Username: "saitou",
 		Password: "asdfgdf",
 		Tel:      "03000000000",
 		Location: 0,
 		Publish:  false,
+		Notify:   notify.Notify{Notify: string(ts)},
+		Priority: priority.Priority{Priority: 100},
 	}
-	err := database.DB.Transaction(
-		func(tx *gorm.DB) error {
-			err := CreateUser(&u)
-			if err != nil {
-				return err
-			}
-			err = notify.CreateNotify(u.Id)
-			if err != nil {
-				return err
-			}
-			priority.CreatePriority(u.Id)
-			if err != nil {
-				return err
-			}
-			return nil
-		})
-	if err != nil {
-		log.Panicln(err)
+
+	if err := database.Transaction(func(tx *gorm.DB) error {
+		// if err := notify.CreateNotify(u.Id, tx).Error; err != nil {
+		// 	return err
+		// }
+		if err := CreateUser(&u, tx).Error; err != nil {
+			return err
+		}
+
+		// if err := priority.CreatePriority(u.Id, tx).Error; err != nil {
+		// 	return err
+		// }
+		return nil
+
+	}); err != nil {
+		log.Fatal(err.Error())
 	}
+
+	log.Println(u.Priority.Id)
+	database.DB.Save(&u)
 }

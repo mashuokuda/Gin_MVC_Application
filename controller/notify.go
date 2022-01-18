@@ -1,10 +1,11 @@
 package controller
 
 import (
-	"Gin_MVC/model/notify"
 	"Gin_MVC/model/user"
-	"github.com/gin-gonic/gin"
+	"log"
 	"net/http"
+
+	"github.com/gin-gonic/gin"
 )
 
 func GetNotify(c *gin.Context) {
@@ -14,6 +15,8 @@ func GetNotify(c *gin.Context) {
 
 	}
 	//userprofile ,er :=
-	notifies, err := notify.GetNotify(user.Id)
+	//notifies, err := notify.GetNotify(user.Id)
+	notifies := user.Notify
+	log.Println(user)
 	c.JSON(http.StatusAccepted, notifies.Notify)
 }

@@ -3,14 +3,16 @@ package notify
 import (
 	"Gin_MVC/model/database"
 	"encoding/json"
+
+	"gorm.io/gorm"
 )
 
 type Notify struct {
-	UserID int    `gorm:"primaryKey"`
+	Id     int    `gorm:"primaryKey"`
 	Notify string `json:"notify"`
 }
 
-func CreateNotify(user int) error {
+func CreateNotify(user int, tx *gorm.DB) *gorm.DB {
 	var s string
 	t, _ := json.Marshal(NotifyJSON{
 		struct {
@@ -21,10 +23,10 @@ func CreateNotify(user int) error {
 		}{},
 	})
 	s = string(t)
-	return database.DB.Create(&Notify{
-		UserID: user,
+	return tx.Create(&Notify{
+		Id:     user,
 		Notify: s,
-	}).Error
+	})
 }
 
 func GetNotify(user int) (Notify, error) {
@@ -40,8 +42,8 @@ func (n Notify) AddNotify(comment NotifyJSON) (Notify, error) {
 	b, _ := json.Marshal(j)
 	n.Notify = string(b)
 	var r = Notify{}
-	tx := database.DB.First(&r, n.UserID).Update("Notify", n.Notify)
-	database.DB.Find(&n, "user_id", r.UserID)
+	tx := database.DB.First(&r, n.Id).Update("Notify", n.Notify)
+	database.DB.Find(&n, "id", r.Id)
 	return n, tx.Error
 }
 
@@ -50,5 +52,5 @@ func (n Notify) RemoveNotify() error {
 	b, _ := json.Marshal(NotifyJSON{})
 	n.Notify = string(b)
 
-	return database.DB.First(&r, n.UserID).Update("Notify", n.Notify).Error
+	return database.DB.First(&r, n.Id).Update("Notify", n.Notify).Error
 }
