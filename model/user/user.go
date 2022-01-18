@@ -31,8 +31,8 @@ func GetUser(name string) (User, error) {
 	user := User{}
 	err := database.DB.Find(&user, "Username", name).Error
 	if err == nil {
-		database.DB.Preload(clause.Associations).Find(&user)
-		database.DB.Preload(clause.Associations).Find(&user)
+		database.DB.Preload(clause.Associations).Find(&user.Priority)
+		database.DB.Preload(clause.Associations).Find(&user.Notify)
 	}
 	return user, err
 }
