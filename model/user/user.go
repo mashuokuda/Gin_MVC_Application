@@ -22,6 +22,8 @@ type User struct {
 	Location uint32
 	Publish  bool
 	Profile  string
+	Image    Image
+	Star     Star
 	Notify   notify.Notify     `gorm:"foreignKey:Id"`
 	Priority priority.Priority `gorm:"foreignKey:Id"`
 }
