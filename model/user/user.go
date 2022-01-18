@@ -23,7 +23,7 @@ type User struct {
 	Publish  bool
 	Profile  string
 	Image    Image
-	Star     Star
+	Star     []Star
 	Notify   notify.Notify     `gorm:"foreignKey:Id"`
 	Priority priority.Priority `gorm:"foreignKey:Id"`
 }
@@ -35,6 +35,9 @@ func GetUser(name string) (User, error) {
 	if err == nil {
 		database.DB.Preload(clause.Associations).Find(&user.Priority)
 		database.DB.Preload(clause.Associations).Find(&user.Notify)
+		database.DB.Preload(clause.Associations).Find(&user.Discuss)
+		database.DB.Preload(clause.Associations).Find(&user.Star)
+
 	}
 	return user, err
 }

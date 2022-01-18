@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{{template "header" .}}
+<h2>{{.username}}</h2>
+<img src="{{.img}}" alt="">
+<p>{{.userprofile}}</p>
+<ul>
+{{range .stars}}
+<li><a href='{{printf "/decree/?id=%d" .Id}}'>{{.Name}}</a>をお気に入りしました</li>
+{{end}}
+</ul>
+</body>
+</html>

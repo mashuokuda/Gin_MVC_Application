@@ -19,6 +19,6 @@ func GetRouter() *gin.Engine {
 	router.GET("/login", controller.DisplayLoginFrom)
 	router.POST("/doAuth", controller.DoAuth)
 	router.GET("/notify", controller.GetNotify)
-	//router.GET("/profile", controller.ProfileDisplay)
+	router.GET("/profile", controller.ProfileDisplay)
 	return router
 }
