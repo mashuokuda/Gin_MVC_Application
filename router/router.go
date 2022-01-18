@@ -11,7 +11,8 @@ func GetRouter() *gin.Engine {
 	router := gin.Default()
 	store := cookie.NewStore([]byte("secret"))
 	router.Use(sessions.Sessions("graduate", store))
-	router.LoadHTMLGlob("view/*.html")
+	//router.LoadHTMLGlob("view/*.html")
+	router.LoadHTMLGlob("view/*/*.html")
 	router.Static("resource", "./resource")
 
 	router.GET("/", controller.IndexDisplayAction)
