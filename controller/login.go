@@ -2,6 +2,7 @@ package controller
 
 import (
 	"Gin_MVC/model/user"
+	"errors"
 	"log"
 	_ "net/http"
 	"time"
@@ -50,4 +51,27 @@ func DoAuth(c *gin.Context) {
 		log.Println("Logined User: " + user.Username)
 		c.Redirect(302, "/")
 	}
+}
+
+//ログインしているユーザーを返す関数
+func getLoginedUser(c *gin.Context) (*user.User, bool, error) {
+	session := sessions.Default(c)
+	sessionUser := session.Get("User") //will be nil
+	usr := user.User{}
+	loginState := false
+	errorMsg := ""
+	if sessionUser != nil {
+		var err error
+		usr, err = user.GetUser(sessionUser.(string))
+		loginState = true
+		if err != nil {
+			log.Println("error")
+			usr = user.User{}
+			loginState = false
+			errorMsg = "不明なエラーが発生しました"
+			session.Clear()
+			return &usr, loginState, errors.New(errorMsg)
+		}
+	}
+	return &usr, loginState, nil
 }

@@ -2,6 +2,8 @@ package user
 
 import (
 	"Gin_MVC/model/database"
+	"Gin_MVC/model/discuss"
+
 	"Gin_MVC/model/notify"
 	"Gin_MVC/model/priority"
 	"time"
@@ -23,9 +25,10 @@ type User struct {
 	Publish  bool
 	Profile  string
 	Image    Image
-	Star     Star
+	Star     []Star
 	Notify   notify.Notify     `gorm:"foreignKey:Id"`
 	Priority priority.Priority `gorm:"foreignKey:Id"`
+	Discuss  []discuss.Discuss `gorm:"foreignKey:Create_User"`
 }
 
 func GetUser(name string) (User, error) {
@@ -35,6 +38,9 @@ func GetUser(name string) (User, error) {
 	if err == nil {
 		database.DB.Preload(clause.Associations).Find(&user.Priority)
 		database.DB.Preload(clause.Associations).Find(&user.Notify)
+		database.DB.Preload(clause.Associations).Find(&user.Discuss)
+		database.DB.Preload(clause.Associations).Find(&user.Star)
+
 	}
 	return user, err
 }

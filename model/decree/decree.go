@@ -9,6 +9,7 @@ import (
 type Decree struct {
 	Id               int `gorm:"primaryKey;autoIncrement"`
 	Decree_Reference string
+	Name             string
 	Last_update      *time.Time
 }
 

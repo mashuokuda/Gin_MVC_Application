@@ -5,10 +5,14 @@ import (
 	"Gin_MVC/model/decree"
 )
 
-type Star []int
+type Star struct {
+	Id     int `gorm:"primaryKey"`
+	UserId int
+	Star   int
+}
 
 func (receiver Star) getStars() *[]decree.Decree {
 	var d []decree.Decree
-	database.DB.Find(&d, receiver, "id = ?")
+	database.DB.Find(&d, receiver.Star, "id = ?")
 	return &d
 }

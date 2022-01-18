@@ -2,6 +2,7 @@ package user
 
 import (
 	"Gin_MVC/model/database"
+	"Gin_MVC/model/discuss"
 	"Gin_MVC/model/notify"
 	"Gin_MVC/model/priority"
 	"encoding/json"
@@ -16,7 +17,7 @@ func TestUser(t *testing.T) {
 	if er != nil {
 		log.Fatal(er)
 	}
-	database.Migrator([]interface{}{&User{}, &notify.Notify{}, &priority.Priority{}})
+	database.Migrator([]interface{}{&User{}, &Star{}, &notify.Notify{}, &priority.Priority{}, &discuss.Discuss{}})
 	s, erro := GetUser("saitou")
 	log.Print(s, erro)
 	ts, _ := json.Marshal(notify.NotifyJSON{
@@ -31,13 +32,32 @@ func TestUser(t *testing.T) {
 		//UserId:       0,
 		Name:     "斉藤",
 		Ruby:     "サイトウ",
-		Username: "saitou",
+		Username: "saito",
 		Password: "asdfgdf",
 		Tel:      "03000000000",
 		Location: 0,
 		Publish:  false,
 		Notify:   notify.Notify{Notify: string(ts)},
 		Priority: priority.Priority{Priority: 100},
+		Discuss: []discuss.Discuss{
+			discuss.Discuss{
+				Id:           1,
+				Ref_Id:       1,
+				Create_User:  0,
+				Discuss_Type: 0,
+				Opened:       0,
+				Content:      nil,
+			},
+		},
+		Star: []Star{
+			Star{
+				Id:   1,
+				Star: 2,
+			},
+			{
+				Star: 3,
+			},
+		},
 	}
 
 	if err := database.Transaction(func(tx *gorm.DB) error {
@@ -57,6 +77,6 @@ func TestUser(t *testing.T) {
 		log.Fatal(err.Error())
 	}
 
-	log.Println(u.Priority.Id)
+	log.Println(u.Star)
 	database.DB.Save(&u)
 }

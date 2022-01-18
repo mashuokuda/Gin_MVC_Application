@@ -1,7 +1,6 @@
 package discuss
 
 import (
-	"Gin_MVC/model/user"
 	"encoding/json"
 	"hash"
 )
@@ -9,7 +8,7 @@ import (
 type Discuss struct {
 	Id           int `gorm:"primaryKey;autoIncrement"`
 	Ref_Id       int `gorm:"primaryKey;autoIncrement"`
-	Create_User  user.User
+	Create_User  int
 	Discuss_Type int
 	Opened       int
 	Content      json.RawMessage `json:"content"`
