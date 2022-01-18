@@ -8,7 +8,7 @@ import (
 
 type Discuss struct {
 	Id           int `gorm:"primaryKey;autoIncrement"`
-	Ref_Id       int `gorm:"primaryKey;autoIncremant"`
+	Ref_Id       int `gorm:"primaryKey;autoIncrement"`
 	Create_User  user.User
 	Discuss_Type int
 	Opened       int
