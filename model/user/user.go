@@ -2,6 +2,8 @@ package user
 
 import (
 	"Gin_MVC/model/database"
+	"Gin_MVC/model/discuss"
+
 	"Gin_MVC/model/notify"
 	"Gin_MVC/model/priority"
 	"time"
@@ -26,6 +28,7 @@ type User struct {
 	Star     []Star
 	Notify   notify.Notify     `gorm:"foreignKey:Id"`
 	Priority priority.Priority `gorm:"foreignKey:Id"`
+	Discuss  []discuss.Discuss `gorm:"foreignKey:Create_User"`
 }
 
 func GetUser(name string) (User, error) {
