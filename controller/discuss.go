@@ -7,6 +7,7 @@ import (
 	"encoding/json"
 	"github.com/gin-gonic/gin"
 	"log"
+	"strconv"
 )
 
 func addDiscuss(c *gin.Context) {
