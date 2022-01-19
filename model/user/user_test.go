@@ -42,7 +42,6 @@ func TestUser(t *testing.T) {
 		Discuss: []discuss.Discuss{
 			discuss.Discuss{
 				Id:           1,
-				Ref_Id:       1,
 				Create_User:  0,
 				Discuss_Type: 0,
 				Opened:       0,
