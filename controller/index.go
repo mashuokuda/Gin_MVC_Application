@@ -10,13 +10,13 @@ func IndexDisplayAction(c *gin.Context) {
 	if err != nil {
 		errorMsg = err.Error()
 	}
-	//userprofile ,er :=
 
 	c.HTML(200, "index.html", gin.H{
 
 		"username":    usr.Name,
 		"userprofile": usr.Profile,
 		"str":         "Index Page",
+		"img":         usr.Image.GetImage(),
 		"loginState":  loginState,
 		"errorMsg":    errorMsg,
 	})

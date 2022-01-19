@@ -1,11 +1,13 @@
 package controller
 
 import (
-	"Gin_MVC/model/notify"
+	"Gin_MVC/model/database"
+	"Gin_MVC/model/discuss"
 	"Gin_MVC/model/user"
 	"encoding/json"
 	"github.com/gin-gonic/gin"
 	"log"
+	"strconv"
 )
 
 func addDiscuss(c *gin.Context) {
@@ -16,12 +18,31 @@ func addDiscuss(c *gin.Context) {
 }
 
 func Display(c *gin.Context) {
-	a, _ := user.GetUser("saitou")
-	b, _ := notify.GetNotify(a.Id)
-	var j notify.NotifyJSON
-	json.Unmarshal([]byte(b.Notify), &j)
-	log.Println(a.Name)
-	c.HTML(200, "index.html", gin.H{
-		"str": "ようこそ" + a.Name + "さん" + j[0].Comment,
+	discussId := c.Query("id")
+	id, err := strconv.Atoi(discussId)
+	if err != nil {
+		log.Println("cannot parse ID :", discussId)
+		c.Error(err)
+	}
+	dis, err := discuss.GetDiscuss(id)
+	decname := dis.Decree.Name
+	disTitle := dis.Title
+	var u user.User
+	er := database.DB.Find(&u, dis.Create_User, "id = ?").Error //Select * from user where user.id = Create_User
+	if er != nil {
+		u = user.User{
+			Id:   -1,
+			Name: "退会ユーザー",
+		}
+	}
+	var content discuss.ContentJSON
+	e := json.Unmarshal(dis.Content, &content)
+	if e != nil {
+	}
+	c.HTML(200, "discuss.html", gin.H{
+		"decree":     decname,
+		"discuss":    disTitle,
+		"createUser": u,
+		"content":    content,
 	})
 }

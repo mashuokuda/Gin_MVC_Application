@@ -72,6 +72,8 @@ func getLoginedUser(c *gin.Context) (*user.User, bool, error) {
 			session.Clear()
 			return &usr, loginState, errors.New(errorMsg)
 		}
+	} else {
+		return &user.User{}, loginState, errors.New("")
 	}
 	return &usr, loginState, nil
 }
