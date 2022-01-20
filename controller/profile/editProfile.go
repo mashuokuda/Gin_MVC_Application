@@ -2,19 +2,16 @@ package profile
 
 import (
 	"Gin_MVC/controller/login"
+	"Gin_MVC/model/location"
 	_ "embed"
-	"encoding/json"
+
 	"github.com/gin-gonic/gin"
 )
-
-//go:embed LocationList.json
-var locJson []byte
 
 func EditProfileDisplay(c *gin.Context) {
 	errorMsg := ""
 	usr, loginState, err := login.GetLoginUser(c)
-	var locList []string
-	json.Unmarshal(locJson, &locList)
+	locList := location.GetLocationList()
 	if err != nil {
 		errorMsg = err.Error()
 	}
