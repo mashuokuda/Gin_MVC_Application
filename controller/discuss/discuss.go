@@ -1,4 +1,4 @@
-package controller
+package discuss
 
 import (
 	"Gin_MVC/model/database"
@@ -24,9 +24,13 @@ func Display(c *gin.Context) {
 		log.Println("cannot parse ID :", discussId)
 		c.Error(err)
 	}
+	//議論取得
 	dis, err := discuss.GetDiscuss(id)
+
 	decname := dis.Decree.Name
+	disType := dis.Discuss_Type
 	disTitle := dis.Title
+	//作成ユーザー
 	var u user.User
 	er := database.DB.Find(&u, dis.Create_User, "id = ?").Error //Select * from user where user.id = Create_User
 	if er != nil {
@@ -40,8 +44,13 @@ func Display(c *gin.Context) {
 	if e != nil {
 	}
 	c.HTML(200, "discuss.html", gin.H{
-		"decree":     decname,
-		"discuss":    disTitle,
+		//議論している法令名
+		"decree": decname,
+		//議論のタイトル
+		"discuss": disTitle,
+		//議論のカテゴリ(疑問、議論、相談)
+		"discussType": disType,
+		//作成ユーザー
 		"createUser": u,
 		"content":    content,
 	})

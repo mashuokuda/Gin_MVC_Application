@@ -74,3 +74,13 @@ func CreateUser(user *User, tx *gorm.DB) *gorm.DB {
 
 	return tx.Create(user)
 }
+
+/*
+ */
+func (user User) GetUserName() string {
+	if user.Publish {
+		return user.Name
+	} else {
+		return user.Username
+	}
+}

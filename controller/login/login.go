@@ -3,7 +3,7 @@
 	ログイン関連処理
 */
 
-package controller
+package login
 
 import (
 	"Gin_MVC/model/user"
@@ -65,8 +65,8 @@ func DoAuth(c *gin.Context) {
 	}
 }
 
-//ログインしているユーザーを返す関数
-func getLoginedUser(c *gin.Context) (*user.User, bool, error) {
+//GetLoginUser ログインしているユーザーを返す関数
+func GetLoginUser(c *gin.Context) (*user.User, bool, error) {
 	session := sessions.Default(c)
 	sessionUser := session.Get("User") //will be nil
 	usr := user.User{}

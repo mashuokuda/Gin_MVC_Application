@@ -1,6 +1,7 @@
-package controller
+package profile
 
 import (
+	"Gin_MVC/controller/login"
 	"Gin_MVC/model/decree"
 	"github.com/gin-gonic/gin"
 )
@@ -8,7 +9,7 @@ import (
 func ProfileDisplay(c *gin.Context) {
 	var decName []decree.Decree
 	errorMsg := ""
-	usr, loginState, err := getLoginedUser(c)
+	usr, loginState, err := login.GetLoginUser(c)
 	if err != nil {
 		errorMsg = err.Error()
 	}
@@ -20,12 +21,16 @@ func ProfileDisplay(c *gin.Context) {
 	}
 	img := usr.Image.GetImage()
 	c.HTML(200, "profile.html", gin.H{
-
-		"username":    usr.Name,
+		//ユーザー名
+		"username": usr.GetUserName(),
+		//自己紹介
 		"userprofile": usr.Profile,
-		"stars":       decName,
-		"img":         img,
-		"loginState":  loginState,
-		"errorMsg":    errorMsg,
+		//お気に入り
+		"stars": decName,
+		//アイコン
+		"img": img,
+		//ログイン状態
+		"loginState": loginState,
+		"errorMsg":   errorMsg,
 	})
 }
