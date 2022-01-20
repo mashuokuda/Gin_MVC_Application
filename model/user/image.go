@@ -5,8 +5,14 @@ import (
 	"os"
 )
 
+//Image 画像のUUID.png
 type Image string
 
+/*
+	GetImage
+	画像パスを取得
+	パスがなければデフォルト画像を表示
+*/
 func (receiver Image) GetImage() string {
 	if receiver == "" {
 		return defaultImage()
@@ -20,6 +26,10 @@ func (receiver Image) GetImage() string {
 	return "resource/userResource/" + string(receiver)
 }
 
+/*
+	defaultImage
+	デフォルト画像パスを渡す
+*/
 func defaultImage() string {
 	var s Image
 	s = "image.png"

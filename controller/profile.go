@@ -14,17 +14,17 @@ func ProfileDisplay(c *gin.Context) {
 	}
 	for _, star := range usr.Star {
 		getDecree, err := decree.GetDecree(star.Star)
-		if err != nil {
-			return
+		if err == nil {
+			decName = append(decName, getDecree)
 		}
-		decName = append(decName, getDecree)
 	}
+	img := usr.Image.GetImage()
 	c.HTML(200, "profile.html", gin.H{
 
 		"username":    usr.Name,
 		"userprofile": usr.Profile,
 		"stars":       decName,
-		"img":         usr.Image.GetImage(),
+		"img":         img,
 		"loginState":  loginState,
 		"errorMsg":    errorMsg,
 	})

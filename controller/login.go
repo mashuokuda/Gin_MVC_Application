@@ -1,3 +1,8 @@
+/*
+	login.go
+	ログイン関連処理
+*/
+
 package controller
 
 import (
@@ -12,6 +17,7 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
+// DisplayLoginFrom ログインフォーム表示
 func DisplayLoginFrom(c *gin.Context) {
 	session := sessions.Default(c)
 	e := session.Get("err")
@@ -25,6 +31,12 @@ func DisplayLoginFrom(c *gin.Context) {
 	})
 }
 
+//DoAuth
+/*
+	ログイン処理
+ 	成功時 : /にリダイレクト,sessionにUserを保存
+ 	失敗時 : /loginにリダイレクト,sessionにerrを保存
+*/
 func DoAuth(c *gin.Context) {
 	session := sessions.Default(c)
 	session.Delete("err")

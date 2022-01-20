@@ -1,3 +1,7 @@
+/*
+	index.go
+	indexページ処理
+*/
 package controller
 
 import (

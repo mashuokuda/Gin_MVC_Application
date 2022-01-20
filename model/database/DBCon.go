@@ -1,3 +1,7 @@
+/*
+	database
+	データベース処理
+*/
 package database
 
 import (
@@ -7,8 +11,13 @@ import (
 	"gorm.io/gorm"
 )
 
+//DB データベース本体
 var DB *gorm.DB
 
+/*
+	DBConnection
+	データベースに接続を開始
+*/
 func DBConnection() error {
 	if DB == nil {
 		var err error
@@ -21,6 +30,7 @@ func DBConnection() error {
 	return nil
 }
 
+//getNewDB 新規コネクションを獲得
 func getNewDB() (*gorm.DB, error) {
 	var db *gorm.DB
 	db, err := gorm.Open(sqlite.Open("data.DB"), &gorm.Config{})
@@ -31,13 +41,10 @@ func getNewDB() (*gorm.DB, error) {
 	return db, nil
 }
 
-func migrator(i interface{}) error {
-	return DB.AutoMigrate(i)
-}
-
+//Migrator DBと構造体をリンクする
 func Migrator(i []interface{}) error {
 	for _, i3 := range i {
-		err := migrator(i3)
+		err := DB.AutoMigrate(i3)
 		if err != nil {
 			return err
 		}
@@ -45,6 +52,7 @@ func Migrator(i []interface{}) error {
 	return nil
 }
 
+//Transaction トランザクション処理の関数を入れる
 func Transaction(f func(tx *gorm.DB) error) error {
 	//db, _ := getNewDB()
 	return DB.Transaction(f)
