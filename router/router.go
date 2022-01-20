@@ -1,7 +1,11 @@
 package router
 
 import (
-	"Gin_MVC/controller"
+	"Gin_MVC/controller/discuss"
+	"Gin_MVC/controller/index"
+	"Gin_MVC/controller/login"
+	"Gin_MVC/controller/notify"
+	"Gin_MVC/controller/profile"
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-contrib/sessions/cookie"
 	"github.com/gin-gonic/gin"
@@ -15,11 +19,12 @@ func GetRouter() *gin.Engine {
 	router.LoadHTMLGlob("view/*/*.html")
 	router.Static("resource", "./resource")
 
-	router.GET("/", controller.IndexDisplayAction)
-	router.GET("/discuss", controller.Display)
-	router.GET("/login", controller.DisplayLoginFrom)
-	router.POST("/doAuth", controller.DoAuth)
-	router.GET("/notify", controller.GetNotify)
-	router.GET("/profile", controller.ProfileDisplay)
+	router.GET("/", index.IndexDisplayAction)
+	router.GET("/discuss", discuss.Display)
+	router.GET("/login", login.DisplayLoginFrom)
+	router.POST("/doAuth", login.DoAuth)
+	router.GET("/notify", notify.GetNotify)
+	router.GET("/profile", profile.ProfileDisplay)
+	router.GET("/editProfile", profile.EditProfileDisplay)
 	return router
 }

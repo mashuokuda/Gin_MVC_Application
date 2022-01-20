@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{{template "header" .}}
+<main>
+    <form>
+<div id="profileImg">
+    <input type="image" name="image" value="{{.img}}">
+    <button>プロフィール画像をアップロードする</button>
+</div>
+<div id="userName">
+    <h2>ユーザー名</h2>
+    <input type="text" value="{{.user.UserName}}" name="username" readonly>
+    <button>編集する</button>
+</div>
+    <div id="profileText">
+        <h2>プロフィール</h2>
+        <textarea name="profile">{{.user.Profile}}</textarea>
+    </div>
+        <div id="Location">
+            <h2>居住地</h2>
+            <select name="location">
+                {{range $i ,$v := .LocationList}}
+                    {{if eq $i .user.Location}}
+                        <option value="{{$i+1}}" selected>{{$v}}</option>
+                    {{else}}
+                        <option value="{{$i+1}}" >{{$v}}</option>
+                    {{end}}
+                {{end}}
+            </select>
+            <div id="profileTel">
+                <input type="tel" value="{{.user.Tel}}" name="tel">
+            </div>
+            {{if .user.Publish}}
+                <input type="checkbox" name="publish" checked>
+            {{else}}
+                <input type="checkbox" name="publish">
+            {{end}}
+        </div>
+    </form>
+</main>
+</body>
+</html>
