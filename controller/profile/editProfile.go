@@ -3,7 +3,6 @@ package profile
 import (
 	"Gin_MVC/controller/login"
 	"Gin_MVC/model/location"
-	_ "embed"
 
 	"github.com/gin-gonic/gin"
 )
