@@ -75,6 +75,12 @@ func CreateUser(user *User, tx *gorm.DB) *gorm.DB {
 	return tx.Create(user)
 }
 
+func GetUserByID(uid int) (User, error) {
+	var user User
+	err := database.DB.First(&user, uid, "id = ?").Error
+	return user, err
+}
+
 /*
  */
 func (user User) GetUserName() string {
