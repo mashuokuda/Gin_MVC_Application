@@ -1,9 +1,9 @@
 package profile
 
 import (
+	"Gin_MVC/controller/header"
 	"Gin_MVC/controller/login"
 	"Gin_MVC/model/location"
-
 	"github.com/gin-gonic/gin"
 )
 
@@ -16,6 +16,7 @@ func EditProfileDisplay(c *gin.Context) {
 	}
 
 	c.HTML(200, "editProfile.html", gin.H{
+		"headerUser": header.GetHeaderUser(usr),
 		"user": struct {
 			//本名
 			Name string

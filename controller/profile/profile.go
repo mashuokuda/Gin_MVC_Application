@@ -1,6 +1,7 @@
 package profile
 
 import (
+	"Gin_MVC/controller/header"
 	"Gin_MVC/controller/login"
 	"Gin_MVC/model/decree"
 	"github.com/gin-gonic/gin"
@@ -21,6 +22,7 @@ func ProfileDisplay(c *gin.Context) {
 	}
 	img := usr.Image.GetImage()
 	c.HTML(200, "profile.html", gin.H{
+		"headerUser": header.GetHeaderUser(usr),
 		//ユーザー名
 		"username": usr.GetUserName(),
 		//自己紹介
