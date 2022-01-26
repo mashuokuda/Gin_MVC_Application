@@ -11,6 +11,7 @@ import (
 
 func IndexDisplayAction(c *gin.Context) {
 	errorMsg := ""
+
 	usr, loginState, err := login.GetLoginUser(c)
 	if err != nil {
 		errorMsg = err.Error()
