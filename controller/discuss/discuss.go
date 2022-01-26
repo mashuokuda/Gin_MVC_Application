@@ -1,6 +1,8 @@
 package discuss
 
 import (
+	"Gin_MVC/controller/header"
+	"Gin_MVC/controller/login"
 	"Gin_MVC/model/database"
 	"Gin_MVC/model/discuss"
 	"Gin_MVC/model/user"
@@ -18,6 +20,13 @@ func addDiscuss(c *gin.Context) {
 }
 
 func Display(c *gin.Context) {
+
+	errorMsg := ""
+	usr, loginState, err := login.GetLoginUser(c)
+	if err != nil {
+		errorMsg = err.Error()
+	}
+
 	discussId := c.Query("id")
 	id, err := strconv.Atoi(discussId)
 	if err != nil {
@@ -44,6 +53,11 @@ func Display(c *gin.Context) {
 	if e != nil {
 	}
 	c.HTML(200, "discuss.html", gin.H{
+		"headerUser": header.GetHeaderUser(usr),
+		//ログイン状態
+		"loginState": loginState,
+		"errorMsg":   errorMsg,
+
 		//議論している法令名
 		"decree": decname,
 		//議論のタイトル
