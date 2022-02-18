@@ -37,5 +37,61 @@
     fn();
     setInterval(fn,5000)
 </script>
-</body>
+    <div class="container-fluid">
+      <div class="row mb-5">
+        <div class="col-md-8 offset-md-2 col-10 offset-1 mt-4">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th class="border-top-0" colspan="3">
+                  <a href="/news/">Topic・News</a>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr data-href="/news/2">
+                <td>2022.01.26</td>
+                <td><div class="table-danger text-center w-75">お詫び</div></td>
+                <td class="m-3"><span>サイト一時停止のお詫び</span></td>
+              </tr>
+              <tr data-href="/news/1">
+                <td>2022.01.23</td>
+                <td>
+                  <div class="table-primary text-center w-75">お知らせ</div>
+                </td>
+                <td><span>運用開始しました</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-10 offset-1">
+          <p class="h4 border-bottom p-3">急上昇</p>
+        </div>
+      </div>
+      <div class="row mb-5">
+        <div class="col-10 offset-1">
+          <div class="row">
+            {{template "parts_card" .}} {{template "parts_card" .}} {{template
+            "parts_card" .}} {{template "parts_card" .}}
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-10 offset-1">
+          <p class="h4 border-bottom p-3">弁護士コラム</p>
+        </div>
+      </div>
+      <div class="row mb-5">
+        <div class="col-10 offset-1">
+          <div class="row">
+            {{template "parts_lawyerCard" .}} {{template "parts_lawyerCard" .}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

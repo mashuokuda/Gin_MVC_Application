@@ -1,5 +1,9 @@
-h1 {
-  text-align: center;
-  margin: 100px; }
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400&display=swap');
+
+body {
+  font-family: 'Noto Sans JP', sans-serif;
+  background-color: rgb(250, 250, 253) !important;
+}
+
 
 /*# sourceMappingURL=index.css.map */
