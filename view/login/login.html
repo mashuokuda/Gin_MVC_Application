@@ -1,17 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Login</title>
-</head>
-<body>
-<p>{{.err}}</p>
-<form method="post" action="/doAuth">
-  <ul>
-    <li>ユーザー名:<input name="username"></li>
-    <li>パスワード:<input name="password" type="password"></li>
-    <li><input type="submit" name="submit"></li>
-  </ul>
-</form>
-</body>
+  <head>
+    {{template "head"}}
+    <title>ログイン</title>
+  </head>
+  <body class="bg-white">
+    <p>{{.err}}</p>
+
+    <div class="container-fluid">
+      <div class="row mt-5">
+        <div class="col-md-4 col-6 offset-md-4 offset-3 offset">
+          <div class="login">
+            <div class="row login__img d-flex justify-content-center my-4">
+              <img
+                src="/resource/img/icon.png"
+                class=""
+                alt=""
+                style="filter: invert()"
+                width="50px"
+              />
+            </div>
+            <div class="row login__title mb-3">
+              <p class="w-100 text-center h5">Sign in to GitLaw</p>
+            </div>
+            <div class="row login__table card p-3 bg-default">
+              <form method="post" action="/doAuth">
+                <table class="table table-borderless m-0">
+                  <tr>
+                    <td colspan="2">UserName</td>
+                  </tr>
+                  <tr>
+                    <td colspan="2">
+                      <input name="username" class="form-control" />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Password</td>
+                    <td class="text-right">
+                      <a href="/"><small>パスワードをお忘れの場合</small></a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colspan="2">
+                      <input
+                        name="password"
+                        class="form-control"
+                        type="password"
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colspan="2">
+                      <input
+                        name="submit"
+                        class="btn btn-success mt-3 w-100"
+                        type="submit"
+                      />
+                    </td>
+                  </tr>
+                </table>
+              </form>
+            </div>
+            <div class="row login__footer">
+              <a href="/register" class="p-3 w-100 text-right"
+                ><small>アカウント新規作成はこちら</small></a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>
