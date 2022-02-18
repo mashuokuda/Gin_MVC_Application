@@ -1,22 +1,53 @@
 {{define "header"}}
 <header>
-    <div>
-
-    </div>
-    <div>
-        <h1><a href="/">GitLaw</a></h1>
-    </div>
-    {{if .loginState}}
-        <div>
-            <img src="{{.headerUser.Image}}" alt="userimage">
+  <div>
+    <nav class="navbar navbar-expand-sm navbar-dark bg-dark mb-3">
+      <a class="d-flex" href="/">
+        <div class="m-1">
+          <img src="/resource/img/icon.png" width="35px" />
         </div>
-    {{else}}
-        <div>
-            <button onclick="location.href='/register'">会員登録</button>
+        <div class="mx-3 d-flex align-items-center">
+          <span class="navbar-brand">Git&nbsp;Law</span>
         </div>
-        <div>
-            <button onclick="location.href='/login'">ログイン</button>
+      </a>
+      <div class="collapse navbar-collapse justify-content-end">
+        <div class="input-group-sm mx-3">
+          <input
+            class="form-control bg-dark border border-secondary text-white px-3"
+            type="text"
+            placeholder="検索"
+          />
         </div>
-    {{end}}
+        {{/*if .loginState*/}}
+        <div class="mx-2">
+          <!--                <img src="{{.headerUser.Image}}" alt="userimage">-->
+          <img
+            class="border border-light rounded-circle"
+            src="/resource/userResource/image.png"
+            alt="userimage"
+            width="35px"
+          />
+        </div>
+        {{/*else*/}}
+        <div class="mx-2">
+          <button
+            class="btn btn-sm btn-outline-light px-3"
+            onclick="location.href='/register'"
+          >
+            会員登録
+          </button>
+        </div>
+        <div class="mx-2">
+          <button
+            class="btn btn-sm btn-outline-light px-3"
+            onclick="location.href='/login'"
+          >
+            ログイン
+          </button>
+        </div>
+        {{/*end*/}}
+      </div>
+    </nav>
+  </div>
 </header>
 {{end}}
